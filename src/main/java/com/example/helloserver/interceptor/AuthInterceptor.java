@@ -13,28 +13,26 @@ public class AuthInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        // 从请求头获取 Authorization 令牌
+        // 从请求头获取 token
         String token = request.getHeader("Authorization");
 
-        // 令牌为空时拦截并返回 401
+        // 没有 token 直接拦截
         if (token == null || token.isEmpty()) {
             response.setContentType("application/json;charset=UTF-8");
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 
-            // 构造统一错误响应
-            Map<String, Object> errorResult = new HashMap<>();
-            errorResult.put("code", ResultCode.TOKEN_INVALID.getCode());
-            errorResult.put("msg", ResultCode.TOKEN_INVALID.getMsg());
-            errorResult.put("data", null);
+            Map<String, Object> result = new HashMap<>();
+            result.put("code", ResultCode.TOKEN_INVALID.getCode());
+            result.put("msg", ResultCode.TOKEN_INVALID.getMsg());
+            result.put("data", null);
 
-            // 输出 JSON 响应
             PrintWriter writer = response.getWriter();
-            writer.write(new ObjectMapper().writeValueAsString(errorResult));
+            writer.write(new ObjectMapper().writeValueAsString(result));
             writer.flush();
             return false;
         }
 
-        // 令牌有效，放行
+        // 有 token 放行
         return true;
     }
 }
