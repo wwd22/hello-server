@@ -14,12 +14,17 @@ public class UserController {
     private UserService userService;
 
     @PostMapping
-    public Result<String> register(@RequestBody UserDTO userDTO) {
-        return userService.register(userDTO);
+    public Result<?> register(@RequestBody UserDTO dto) {
+        return userService.register(dto);
     }
 
     @PostMapping("/login")
-    public Result<String> login(@RequestBody UserDTO userDTO) {
-        return userService.login(userDTO);
+    public Result<?> login(@RequestBody UserDTO dto) {
+        return userService.login(dto);
+    }
+
+    @GetMapping("/info")
+    public Result<?> info() {
+        return Result.success("用户信息");
     }
 }

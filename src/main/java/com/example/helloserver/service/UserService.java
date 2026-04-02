@@ -4,6 +4,6 @@ import com.example.helloserver.common.Result;
 import com.example.helloserver.dto.UserDTO;
 
 public interface UserService {
-    Result<String> register(UserDTO userDTO);
-    Result<String> login(UserDTO userDTO);
+    Result<?> register(UserDTO dto);
+    Result<?> login(UserDTO dto);
 }

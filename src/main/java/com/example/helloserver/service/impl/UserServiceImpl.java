@@ -5,32 +5,33 @@ import com.example.helloserver.common.ResultCode;
 import com.example.helloserver.dto.UserDTO;
 import com.example.helloserver.service.UserService;
 import org.springframework.stereotype.Service;
+
 import java.util.HashMap;
 import java.util.Map;
 
 @Service
 public class UserServiceImpl implements UserService {
 
-    private static final Map<String, String> userDb = new HashMap<>();
+    // 纯内存存储，不用数据库，永远不报错
+    private static final Map<String, String> userMap = new HashMap<>();
 
     @Override
-    public Result<String> register(UserDTO userDTO) {
-        if (userDb.containsKey(userDTO.getUsername())) {
-            return Result.error(ResultCode.USER_HAS_EXISTED);
+    public Result<?> register(UserDTO dto) {
+        if (userMap.containsKey(dto.getUsername())) {
+            return Result.error(ResultCode.USER_EXIST);
         }
-        userDb.put(userDTO.getUsername(), userDTO.getPassword());
+        userMap.put(dto.getUsername(), dto.getPassword());
         return Result.success("注册成功");
     }
 
     @Override
-    public Result<String> login(UserDTO userDTO) {
-        if (!userDb.containsKey(userDTO.getUsername())) {
+    public Result<?> login(UserDTO dto) {
+        if (!userMap.containsKey(dto.getUsername())) {
             return Result.error(ResultCode.USER_NOT_EXIST);
         }
-        String dbPassword = userDb.get(userDTO.getUsername());
-        if (!dbPassword.equals(userDTO.getPassword())) {
+        if (!userMap.get(dto.getUsername()).equals(dto.getPassword())) {
             return Result.error(ResultCode.PASSWORD_ERROR);
         }
-        return Result.success("登录成功");
+        return Result.success(Map.of("token", "login-success"));
     }
 }
