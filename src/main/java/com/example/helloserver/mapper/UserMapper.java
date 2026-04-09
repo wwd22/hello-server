@@ -2,7 +2,9 @@ package com.example.helloserver.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.example.helloserver.entity.User;
+import org.apache.ibatis.annotations.Mapper;
 
-// ✅ 把这里的 @Mapper 删掉！
+@Mapper
 public interface UserMapper extends BaseMapper<User> {
+
 }

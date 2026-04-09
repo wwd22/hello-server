@@ -3,28 +3,29 @@ package com.example.helloserver.controller;
 import com.example.helloserver.common.Result;
 import com.example.helloserver.dto.UserDTO;
 import com.example.helloserver.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
+
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/user") // 核心：改为 /user
 public class UserController {
 
-    @Autowired
+    @Resource
     private UserService userService;
 
-    @PostMapping
-    public Result<?> register(@RequestBody UserDTO dto) {
-        return userService.register(dto);
+    @PostMapping("/register")
+    public Result<String> register(@RequestBody UserDTO userDTO) {
+        return userService.register(userDTO);
     }
 
     @PostMapping("/login")
-    public Result<?> login(@RequestBody UserDTO dto) {
-        return userService.login(dto);
+    public Result<String> login(@RequestBody UserDTO userDTO) {
+        return userService.login(userDTO);
     }
 
-    @GetMapping("/info")
-    public Result<?> info() {
-        return Result.success("用户信息");
+    @GetMapping("/{id}")
+    public Result<String> getUserById(@PathVariable Long id) {
+        return userService.getUserById(id);
     }
 }
