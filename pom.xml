@@ -5,34 +5,41 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.7.18</version>
+        <version>2.7.15</version>
         <relativePath/>
     </parent>
 
     <groupId>com.example</groupId>
-    <artifactId>helloserver</artifactId>
+    <artifactId>hello-server</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>helloserver</name>
-    <description>Hello Server</description>
+    <name>hello-server</name>
+
+    <properties>
+        <java.version>1.8</java.version>
+    </properties>
 
     <dependencies>
+        <!-- SpringBoot Web -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
+        <!-- MySQL驱动 -->
+        <dependency>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
+        <!-- MyBatis-Plus 核心（分页必备） -->
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
             <version>3.5.5</version>
         </dependency>
 
-        <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-
+        <!-- Lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>

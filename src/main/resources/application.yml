@@ -1,10 +1,11 @@
 spring:
   datasource:
-    driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/postgres
-    username: postgres
-    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    # 数据库名改成你的 mybatis_plus_test！！！
+    url: jdbc:mysql://127.0.0.1:3306/mybatis_plus_test?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+    username: root
+    password: 20051015
 
 mybatis-plus:
   configuration:
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true

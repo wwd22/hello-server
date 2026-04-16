@@ -1,31 +1,25 @@
 package com.example.helloserver.controller;
 
 import com.example.helloserver.common.Result;
-import com.example.helloserver.dto.UserDTO;
 import com.example.helloserver.service.UserService;
-import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 
 @RestController
-@RequestMapping("/user") // 核心：改为 /user
+@RequestMapping("/api/user")
 public class UserController {
 
     @Resource
     private UserService userService;
 
-    @PostMapping("/register")
-    public Result<String> register(@RequestBody UserDTO userDTO) {
-        return userService.register(userDTO);
-    }
-
-    @PostMapping("/login")
-    public Result<String> login(@RequestBody UserDTO userDTO) {
-        return userService.login(userDTO);
-    }
-
-    @GetMapping("/{id}")
-    public Result<String> getUserById(@PathVariable Long id) {
-        return userService.getUserById(id);
+    @GetMapping("/page")
+    public Result<Object> getUserPage(
+            @RequestParam(defaultValue = "1") Integer pageNum,
+            @RequestParam(defaultValue = "5") Integer pageSize
+    ){
+        return userService.getUserPage(pageNum, pageSize);
     }
 }
