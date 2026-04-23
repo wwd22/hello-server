@@ -2,12 +2,11 @@ package com.example.helloserver.interceptor;
 
 import com.example.helloserver.common.Result;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.stereotype.Component; // 加这个
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.HandlerInterceptor;
 
-@Component // 必须加这个！
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 public class AuthInterceptor implements HandlerInterceptor {
 
     @Override
@@ -16,7 +15,10 @@ public class AuthInterceptor implements HandlerInterceptor {
 
         if (token == null || token.trim().isEmpty()) {
             response.setContentType("application/json;charset=utf-8");
-            Result<String> result = Result.error(401, "token无效");
+            // 用 Result.error(String msg) 方法，然后设置 code 为 401
+            Result<String> result = Result.error("token无效");
+            result.setCode(401);
+
             ObjectMapper mapper = new ObjectMapper();
             response.getWriter().write(mapper.writeValueAsString(result));
             return false;

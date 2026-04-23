@@ -9,8 +9,6 @@ import lombok.Data;
 @TableName("sys_user")
 public class User {
     @TableId(type = IdType.AUTO)
-    private Integer id;
+    private Long id;         // 对应你 VO 里的 userId
     private String username;
-    private String password;
-    // 删除 name！你的表里没有这个字段！
 }
