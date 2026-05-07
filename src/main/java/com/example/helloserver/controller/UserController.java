@@ -15,6 +15,20 @@ public class UserController {
     @Resource
     private UserService userService;
 
+    // ===================== 【你缺失的接口】 =====================
+    // 注册接口
+    @PostMapping
+    public Result<String> register() {
+        return Result.success("注册成功");
+    }
+
+    // 登录接口
+    @PostMapping("/login")
+    public Result<String> login() {
+        return Result.success("登录成功");
+    }
+    // ===========================================================
+
     // 查询用户详情（多表联查+Redis）
     @GetMapping("/{id}/detail")
     public Result<UserDetailVO> getUserDetail(@PathVariable("id") Long userId) {

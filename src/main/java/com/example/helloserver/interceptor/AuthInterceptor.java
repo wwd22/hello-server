@@ -11,11 +11,16 @@ public class AuthInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        // 白名单：直接放行注册和登录接口
+        String uri = request.getRequestURI();
+        if ("/api/users".equals(uri) || "/api/users/login".equals(uri)) {
+            return true;
+        }
+
         String token = request.getHeader("token");
 
         if (token == null || token.trim().isEmpty()) {
             response.setContentType("application/json;charset=utf-8");
-            // 用 Result.error(String msg) 方法，然后设置 code 为 401
             Result<String> result = Result.error("token无效");
             result.setCode(401);
 
