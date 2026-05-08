@@ -1,4 +1,8 @@
 spring:
+  main:
+    allow-circular-references: true
+
+  # 下面是你原来的配置，不动
   data:
     redis:
       host: 127.0.0.1
@@ -14,3 +18,8 @@ mybatis-plus:
   configuration:
     map-underscore-to-camel-case: true
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+security:
+  jwt:
+    secret: my-secret-key-2025-very-long-and-safe
+    expiration: 7200000

@@ -11,14 +11,22 @@ public class AuthInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        // 白名单：直接放行注册和登录接口
+        // 白名单放行登录接口
         String uri = request.getRequestURI();
-        if ("/api/users".equals(uri) || "/api/users/login".equals(uri)) {
+        if ("/user/login".equals(uri)) {
             return true;
         }
 
         String token = request.getHeader("token");
+        // Java8 兼容：判断空/空格
+        if (token == null || token.trim().isEmpty()) {
+            token = request.getHeader("Authorization");
+            if (token != null && token.startsWith("Bearer ")) {
+                token = token.substring(7);
+            }
+        }
 
+        // Java8 兼容判断
         if (token == null || token.trim().isEmpty()) {
             response.setContentType("application/json;charset=utf-8");
             Result<String> result = Result.error("token无效");
